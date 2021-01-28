@@ -8,7 +8,7 @@ const UpdateMovie = (props) => {
         title:"",
         director:"",
         metascore:"",
-        stars:[]
+        // stars:[]
     }
 
     console.log(initialState)
@@ -31,25 +31,25 @@ const UpdateMovie = (props) => {
 
     const changeHandler = (e) => {
         e.persist();
-        let value = e.target.value;
-        if (e.target.name === "metascore"){
-            value = parseInt(value, 10);
-        }
-        setUpdateMovie({
-            ...updateMovie,
-            [e.target.name]: value
-        })
-    }
+       const { name, value } = e.target;
+       setUpdateMovie({
+           ...updateMovie,
+           [name]: value,
+       });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
             .put(`http://localhost:5000/api/movies/${id}`, updateMovie)
             .then(res => {
-             props.setMovieList(res.data);
-             push(`/movies/`)
+             props.setMovieList(res);
+             push(`/movies/:${id}`)
             })
-    }
+            .catch(err => {
+                console.log(err)
+            })
+    };
 
 
     return(
