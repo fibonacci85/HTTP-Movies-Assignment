@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
+
 function Movie({ addToSavedList }) {
   const [movie, setMovie] = useState(null);
   const params = useParams();
@@ -26,6 +27,11 @@ function Movie({ addToSavedList }) {
     return <div>Loading movie information...</div>;
   }
 
+  const editMovie = (e) => {
+    e.preventDefault();
+    // movie.push("/update-movie/:id")
+  }
+
   return (
     <div className="save-wrapper">
       <MovieCard movie={movie} />
@@ -33,6 +39,7 @@ function Movie({ addToSavedList }) {
       <div className="save-button" onClick={saveMovie}>
         Save
       </div>
+      <button onClick={editMovie}>Edit</button>
     </div>
   );
 }
